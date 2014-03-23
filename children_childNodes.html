@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>children and childNodes</title>
+    
+</head>
+<body>
+    <ul id="J_list">
+        <li><a href="#">001</a></li>
+        <!-- 啦啦啦我是测试注释的... -->
+        <li><a href="#">002</a></li>
+        <li><a href="#">003</a></li>
+        <li><a href="#">004</a></li>
+        <li><a href="#">005</a></li>
+        <li><a href="#">006</a></li>
+    </ul>
+    <div class="J_test_01"></div>
+    <div class="J_test_02"></div>
+    <div class="J_test_03"></div>
+    <div class="J_test_04"></div>
+    <div class="J_test_05"></div>
+    <div class="J_test_06"></div>
+    <script type="text/javascript">
+        var J_list = document.getElementById("J_list");
+        log("children.length : "+ J_list.children.length);
+        log("childNodes.length : "+ J_list.childNodes.length);
+
+        log("children 调用 : "+ children(J_list).length);
+
+        log("children 调用a : "+ children(J_list,"a").length);
+
+        log("nextAll调用: "+ nextAll(J_list,"a").length);
+
+
+        children(J_list)[1].innerHTML = 2;
+
+        log("nextAll a.eq(1) : "+ nextAll(children(J_list)[1]));
+
+        log("next li.eq(1) : "+ next(children(J_list)[1]));
+        log("siblings li.eq(4) : "+ siblings(children(J_list)[4]));
+
+
+        function children(ele, tagName){
+            return query_next(ele && ele.firstChild, tagName);
+        }
+
+        function next(ele, tagName) {
+            return query_next(ele, "one", tagName);
+        }
+
+        function nextAll(ele, tagName){
+            return query_next(ele, "all", tagName);
+        }
+
+        function prev(ele, tagName) {
+            return query_prev(ele, "one", tagName);
+        }
+
+        function prevAll(ele, tagName){
+            return query_prev(ele, "all", tagName);
+        }
+
+        function siblings(ele, tagName){
+            return query_next(ele && ele.parentNode.firstChild, "all", ele, tagName);
+        }
+
+        function parent(ele, tagName){
+            return query_parent(ele, "one", tagName);
+        }
+
+        function parents(ele, tagName){
+            return query_parent(ele, "all", tagName);
+        }
+
+
+        /**
+         * 查找next元素
+         * @param  {HTMLElement} ele     元素
+         * @param  {string} type    是否只一个
+         * @param  {string} tagName 元素name
+         * @return {array}         目标元素集合
+         */
+        function query_next( ele, type, target, tagName){
+            var arr = [],
+                element = ele && ele.nodeType && ele.nextSibling,
+                m = false;
+            if(tagName){
+                tagName = tagName.toUpperCase();
+            }
+            while(element){
+                if(element.nodeType === 1 && (!tagName || element.nodeName === tagName) && element !== target){
+                    arr.push(element);
+                    if(type === "one"){
+                        m = true;
+                        element = null;
+                    }
+                }
+                !m && (element = element.nextSibling);
+            }
+            return arr;
+        }
+
+
+        /**
+         * 查找parent元素
+         * @param  {HTMLElement} ele     元素
+         * @param  {string} type    是否只一个
+         * @param  {string} tagName 元素name
+         * @return {array}         目标元素集合
+         */
+        function query_parent( ele, type, tagName){
+            var arr = [],
+                element = ele && ele.nodeType && ele.parentNode,
+                m = false;
+            if(tagName){
+                tagName = tagName.toUpperCase();
+            }
+            while(element){
+                if(element.nodeType === 1 && (!tagName || element.nodeName === tagName)){
+                    arr.push(element);
+                    if(type === "one"){
+                        m = true;
+                        element = null;
+                    }
+                }
+                !m && (element = element.parentNode);
+            }
+            return arr;
+        }
+
+
+        /**
+         * 查找prev元素
+         * @param  {HTMLElement} ele     元素
+         * @param  {string} type    是否只一个
+         * @param  {string} tagName 元素name
+         * @return {array}         目标元素集合
+         */
+        function query_prev( ele, type, target, tagName){
+            var arr = [],
+                element = ele && ele.nodeType && ele.previousSibling,
+                m = false;
+            if(tagName){
+                tagName = tagName.toUpperCase();
+            }
+            while(element){
+                if(element.nodeType === 1 && (!tagName || element.nodeName === tagName && element !== target)){
+                    arr.push(element);
+                    if(type === "one"){
+                        m = true;
+                        element = null;
+                    }
+                }
+                !m && (element = element.previousSibling);
+            }
+            return arr;
+        }
+
+
+        function log (str ) {
+            if(window.console){
+                window.console.log(str);
+            } else {
+                window.alert(str);
+            }
+        }
+    </script>
+</body>
+</html>
