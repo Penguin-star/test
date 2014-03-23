@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Date</title>
+    
+</head>
+<body>
+    
+    <script type="text/javascript">
+
+        /**
+         * 美化时间
+         * @param  {number} e 目标时间戳
+         * @return {string}   美化成功的
+         */
+        function elapsedDate(e) {
+            var past = (new Date - e) / 1000,
+                result;
+            if (past < 10) {
+                result = '刚刚';
+            } else if (past < 60) {
+                result = Math.round(past) + "秒前";
+            } else if (past < 3600) {
+                result = Math.round(past / 60) + "分钟前";
+            } else if (past < 86400) {
+                result = Math.round(past / 3600) + "小时前";
+            } else {
+                result = fullDate(e, true);
+            }
+            return result;
+        }
+
+        /**
+         * 输出全部日期
+         * @param  {number} e    目标时间戳
+         * @param  {boolean} mark 是否简单显示
+         * @return {string}      结果
+         */
+        function fullDate(e, mark) {
+            var t = new Date();
+            t.setTime((e || new Date - 0) * 1);
+            if (mark) {
+                return (new Date().getFullYear() == t.getFullYear() ? "" : t.getFullYear() + "年") + (t.getMonth() + 1) + "月" + t.getDate() + "日";
+            }
+            return t.getFullYear() + "年" + (t.getMonth() + 1) + "月" + t.getDate() + "日 " + t.toLocaleTimeString();
+        }
+       
+        
+        /**
+         * 拿字符串换对象
+         * parseDate("2011-10-10")
+         */
+        var parseDate=function(e) {
+            return e.parse("2011-10-28T00:00:00+08:00") && function(t) {
+                return new e(t)
+            } || e.parse("2011/10/28T00:00:00+0800") && function(t) {
+                return new e(t.replace(/-/g, "/").replace(/:(\d\d)$/, "$1"))
+            } || e.parse("2011/10/28 00:00:00+0800") && function(t) {
+                return new e(t.replace(/-/g, "/").replace(/:(\d\d)$/, "$1").replace("T", " "))
+            } || function(t) {
+                return new e(t)
+            }
+        }(Date);
+
+        /**
+         * 拿时间戳换对象
+         * @param {[type]} e [description]
+         */
+        var setTimeDate = function(e){
+            return new Date().setTime(parseInt(e,10)|0);
+        }
+
+        // alert(parseDate("2011-10-10").getFullYear())
+
+       //  var a = new Date();
+       //  a.setTime(1318204800000);
+       //  alert(a.getFullYear());
+
+       // a = parseDate("2011-10-10");
+
+
+       //  alert(a.getTime())
+       //  
+        alert("yyyy-MM-dd hh:mm:ss.S => "+ formatDate("yyyy-MM-dd hh:mm:ss.S"));
+        alert("yyyy-MM-dd E HH:mm:ss => "+ formatDate("yyyy-MM-dd E HH:mm:ss"));
+        alert("yyyy-MM-dd EE hh:mm:ss => "+ formatDate("yyyy-MM-dd EE hh:mm:ss"));
+        alert("yyyy-MM-dd EEE hh:mm:ss => "+ formatDate("yyyy-MM-dd EEE hh:mm:ss"));
+        alert("yyyy-M-d h:m:s.S => "+ formatDate("yyyy-M-d h:m:s.S"));
+
+        alert("yyyy-M-d h:m:s => "+ formatDate("yyyy-M-d h:m:s.S", 1318204800000));
+        alert("yyyy-M-d h:m:s => "+ formatDate("yyyy-M-d h:m:s.S", 1318204800000));
+
+
+         /**
+         * 日期格式化
+         * @type {[type]}
+         * "yyyy-MM-dd hh:mm:ss.S" =>
+         * "yyyy-MM-dd E HH:mm:ss" => 
+         * "yyyy-MM-dd EE hh:mm:ss" =>
+         * "yyyy-MM-dd EEE hh:mm:ss" =>
+         * "yyyy-M-d h:m:s.S" =>
+         */
+        function formatDate (str, date){
+            var getTime,
+                weeks,
+                key;
+            if(!str){
+                return "";
+            }
+            if(date){
+                if(!(date instanceof Date)){
+                    getTime = new Date();
+                    getTime.setTime(parseInt(date, 10)|0);
+                    date = getTime;
+                }
+            } else {
+                date = new Date();
+            }
+
+            getTime = {           
+                "M+" : date.getMonth()+1, //月份           
+                "d+" : date.getDate(), //日           
+                "h+" : date.getHours()%12 == 0 ? 12 : date.getHours()%12, //小时           
+                "H+" : date.getHours(), //小时           
+                "m+" : date.getMinutes(), //分           
+                "s+" : date.getSeconds(), //秒           
+                "S"  : date.getMilliseconds() //毫秒           
+            }
+
+            weeks = ["\u65e5","\u4e00","\u4e8c","\u4e09","\u56db","\u4e94","\u516d"];
+
+            if(/(y+)/i.test(str)){           
+                str = str.replace(RegExp.$1, (date.getFullYear()+"").substr(4 - RegExp.$1.length));           
+            }
+
+            if(/(E+)/.test(str)){           
+                str = str.replace(RegExp.$1, ((RegExp.$1.length>1) ? (RegExp.$1.length>2 ? "\u661f\u671f" : "\u5468") : "")+weeks[date.getDay()]);           
+            }           
+            for(key in getTime){           
+                if(new RegExp("("+ key +")").test(str)){           
+                    str = str.replace(RegExp.$1, (RegExp.$1.length==1) ? (getTime[key]) : (("00"+ getTime[key]).substr((""+ getTime[key]).length)));           
+                }           
+            }           
+            return str;
+        }
+
+
+    </script>
+</body>
+</html>
