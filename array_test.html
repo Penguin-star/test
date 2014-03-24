@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>array_test</title>
+</head>
+<body>
+	<script type="text/javascript">
+		//加全部这次匹配的
+		//[{xl:1,xl:2},{xl3:3,xl4:4}].test("xl",1) => [{xl:1,xl:2}]
+		Array.prototype.test = function (key, value, callback){
+			var arr = [],
+				temp,
+				i = 0,
+				len = this.length;
+			for(;i<len;i++){
+				temp = this[i];
+				if(temp[key] === value){
+					arr.push(temp);
+					if(callback){
+						callback(temp);
+					}
+				}
+			}
+			return arr;
+		}
+
+		//只加完全匹配的
+		//[{xl:1,xl:2},{xl3:3,xl4:4}].test("xl",1) => [{xl:1}]
+		Array.prototype.test2 = function (key, value, callback){
+			var arr = [],
+				temp,
+				i = 0,
+				len = this.length,
+				temp2;
+			for(;i<len;i++){
+				temp = this[i];
+				if(temp[key] === value){
+					temp2 = {};
+					temp2[key] = value;
+					arr.push(temp2);
+					if(callback){
+						callback(temp);
+					}
+				}
+			}
+			return arr;
+		}
+	</script>
+</body>
+</html>
