@@ -130,14 +130,17 @@
 
             weeks = ["\u65e5","\u4e00","\u4e8c","\u4e09","\u56db","\u4e94","\u516d"];
 
-            if(/(y+)/i.test(str)){           
+            //如果有年
+            if(/(y+)/i.test(str)){
+                //RegExp.$1为上次正则匹配的第1个结果，那么length就不用说了吧
                 str = str.replace(RegExp.$1, (date.getFullYear()+"").substr(4 - RegExp.$1.length));           
             }
 
+            //如果有星期，思路同年
             if(/(E+)/.test(str)){           
                 str = str.replace(RegExp.$1, ((RegExp.$1.length>1) ? (RegExp.$1.length>2 ? "\u661f\u671f" : "\u5468") : "")+weeks[date.getDay()]);           
             }           
-            for(key in getTime){           
+            for(key in getTime){
                 if(new RegExp("("+ key +")").test(str)){           
                     str = str.replace(RegExp.$1, (RegExp.$1.length==1) ? (getTime[key]) : (("00"+ getTime[key]).substr((""+ getTime[key]).length)));           
                 }           
