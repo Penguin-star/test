@@ -1,10 +1,10 @@
-css3 -webkit-transition:background-position cubic-bezier(0.45, 0.3, 0.18, 1.0) 2.6s;
+﻿css3 -webkit-transition:background-position cubic-bezier(0.45, 0.3, 0.18, 1.0) 2.6s;
 transition:background-position cubic-bezier(0.45, 0.3, 0.18, 1.0) 2.6s;
 
 
 
 
-//ȥhtml����
+//去html代码
         paste: function(ele) {
             setTimeout(function() {
                 var content = ele.innerHTML,
@@ -42,68 +42,68 @@ transition:background-position cubic-bezier(0.45, 0.3, 0.18, 1.0) 2.6s;
 
  return !!el.className && (" " + el.className + " ").indexOf(" " + cls + " ") > -1
 
-"tab"+ model.charAt(0).toUpperCase() + model.substr(1);//sliceҲ����,�㶮��
+"tab"+ model.charAt(0).toUpperCase() + model.substr(1);//slice也可以,你懂的
 
-setTimeout("1")����ʶ
+setTimeout("1")做标识
 
-new Date-1  // +new Date // new Date().getTime() // new Date().valueOf();  ʱ���, ����ʽת,��ʽת
+new Date-1  // +new Date // new Date().getTime() // new Date().valueOf();  时间戳, 有显式转,隐式转
 
-sort �������� ԭ����,���������µ�
-push,����ԭ����,���������µ�length
-pop����ԭ,����ȥ��
-shift����ԭ,����ȥ��
-unshift����ԭ,����length
-slice������ԭ,������arr
-splice����ԭ,����ȥ��
+sort 操作的是 原数组,并返回最新的
+push,操作原数组,并返回最新的length
+pop操作原,返回去的
+shift操作原,返回去的
+unshift操作原,返回length
+slice不操作原,返回新arr
+splice操作原,返回去的
 
-Push()β������ pop()β��ɾ��
-Unshift()ͷ������  shift()ͷ��ɾ��
+Push()尾部添加 pop()尾部删除
+Unshift()头部添加  shift()头部删除
 
 
 nginx -s stop
 start nginx
 nginx -s reload
 
-//ȥie10�����ӵ����������
+//去ie10的连接点击背景问题
 a:active {
     background-color: transparent;
 }
 
 
-@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) { /*�޸�ie10 active bug*/
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) { /*修改ie10 active bug*/
 	a:active {
 	    background-color: transparent;
 	}
 }
 
 
-�ҵ��� word-wrap:break-word��word-break:break-all��ͬ���Ƕ��ܰѳ�����ǿ�жϾ䣬��ͬ����word-wrap:break-word��������һ�����������ó����ʣ��µ��л��ǷŲ���������������Գ����ʽ���ǿ�ƶϾ䣻��word-break:break-all�򲻻�ѳ����ʷ���һ�����������һ�зŲ��µ�ʱ���ֱ��ǿ�ƶϾ��ˡ�
-word-break�򵥴ֱ�= =
+找到了 word-wrap:break-word与word-break:break-all共同点是都能把长单词强行断句，不同点是word-wrap:break-word会首先起一个新行来放置长单词，新的行还是放不下这个长单词则会对长单词进行强制断句；而word-break:break-all则不会把长单词放在一个新行里，当这一行放不下的时候就直接强制断句了。
+word-break简单粗暴= =
 
-(fuction(a,b){}(a,b) ǰ���a,b���βΣ����������д��ݵ���ʵ��
+(fuction(a,b){}(a,b) 前里的a,b是形参，后面自运行传递的是实参
 
 
-1.����С������,������������
+1.丢弃小数部分,保留整数部分
 parseInt(5/2)
 
-2.����ȡ��,��С�����������ּ�1
+2.向上取整,有小数就整数部分加1
 
 Math.ceil(5/2)
 
-3,��������.
+3,四舍五入.
 
 Math.round(5/2)
 
-4,����ȡ��
+4,向下取整
 
 Math.floor(5/2)
-random() ���� 0 ~ 1 ֮�������� 1 2 3 
-round(x) ��һ������������Ϊ��ӽ������� 1 2 3 
+random() 返回 0 ~ 1 之间的随机数 1 2 3 
+round(x) 把一个数四舍五入为最接近的整数 1 2 3 
 
 
-substr Ϊ (��,�ַ���) ֧��-1, 1 = -1+.length
-substring Ϊ (��,ֹ) ��֧�� -1
-slice Ϊ (��,ֹ) ֧�� -1, -1 = -1+.length
+substr 为 (起,字符长) 支持-1, 1 = -1+.length
+substring 为 (起,止) 不支持 -1
+slice 为 (起,止) 支持 -1, -1 = -1+.length
  
 
 
@@ -171,67 +171,71 @@ header("Content-type: ". ($type==="js"?'application/javascript':'text/css') ."; 
 overflow:hidden;text-overflow: ellipsis;white-space: nowrap;
 
 
-//��������¼����
+//第三方登录窗口
     conf.openWin = function(url){
         var win = XM(window), set = [(win.height()-420)/2, (win.width()-520)/2];
         window.open(url, 'connect_window', 'height=420, width=560, toolbar =no, menubar=no, scrollbars=yes, resizable=no,top='+ set[0] +',left='+ set[1] +', location=no, status=no');
     };
 
 
- ǿ�Ʋ�����
+ 强制不换行
             div{
                 white-space:nowrap;
             }
-        �Զ�����
+        自动换行
             div{
                 word-wrap: break-word;
                 word-break: normal;
             }
-        ǿ��Ӣ�ĵ��ʶ���
+        强制英文单词断行
             div{
                 word-break:break-all;
             }
 
-1. word-break:break-all;ֻ��Ӣ�������ã�����ĸ��Ϊ��������
-2. word-wrap:break-word; ֻ��Ӣ�������ã��Ե�����Ϊ��������
-3.{white-space:pre-wrap; ֻ�����������ã�ǿ�ƻ���
-4.{white-space:nowrap; ǿ�Ʋ����У���������
-5.{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;�����У�����������������ʡ�Ժ���ʽ����
+1. word-break:break-all;只对英文起作用，以字母作为换行依据
+2. word-wrap:break-word; 只对英文起作用，以单词作为换行依据
+3.{white-space:pre-wrap; 只对中文起作用，强制换行
+4.{white-space:nowrap; 强制不换行，都起作用
+5.{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;不换行，超出部分隐藏且以省略号形式出现
 http://blog.csdn.net/ldl22847/article/details/7247702
 
 
 filter:alpha(opacity=100);
 
 
-5.Sublime Text Css�Զ����
-дCss�ᷢ�� Sublime Text�Զ����ʱ���һ���ո񣬿����ر��Ť���ṩ���������
-���ȴ�Preferences> Browse Packages ��ʱ����㱾����һ��·����
-�ҵ����·���µ�һ��CSS�ļ����µ� css_completions.py(ע�����ֲ��Ǵ�css_completions.pyc���ļ�������)�ļ����ϵ�Sublime Text ��Ϳ����Զ����ˣ�
-Ȼ������ �ؼ���l.append((p, p + ": "))  ��ð�ź���Ŀո�ȥ�������漴�ɡ�
+5.Sublime Text Css自动完成
+写Css会发现 Sublime Text自动完成时会多一个空格，看着特别别扭现提供解决方法：
+首先打开Preferences> Browse Packages 这时会打开你本机的一个路径，
+找到这个路径下的一个CSS文件夹下的 css_completions.py(注意区分不是此css_completions.pyc，文件名相似)文件，拖到Sublime Text 里就可以自动打开了，
+然后，搜索 关键字l.append((p, p + ": "))  把冒号后面的空格去除，保存即可。
 
 
-//emmet�ո�
+//emmet空格
 {
      "preferences": {
          "css.valueSeparator": ":"
       }
  }
 
+//tab->空格
+ "tab_size": 4,
+    "translate_tabs_to_spaces": true 
+
 sublime YUI http://qianduanblog.com/1918.html#5%E3%80%81%E9%85%8D%E7%BD%AEYUI+Compressor
 
 
-st�����
-Image2Base64 imgתbase64
-ConvertToUTF8 ת��
-Emmet �����Զ���� tab
-JsFormat js��ʽ�� ctrl+alt+f
-SublimeCodeIntel ������ʾ
-Tag ������ʾ
+st插件：
+Image2Base64 img转base64
+ConvertToUTF8 转码
+Emmet 代码自动完成 tab
+JsFormat js格式化 ctrl+alt+f
+SublimeCodeIntel 代码提示
+Tag 代码提示
 TortoiseSVN svn alt+c/u/r
-YUI Compressor ����ѹ�� f7
+YUI Compressor 代码压缩 f7
 
 
-ie6���a->href=javascript ����jsʧЧ
+ie6里的a->href=javascript 导致js失效
 
 by sentsin
 body{background:#fff;}/*other*/
@@ -251,30 +255,30 @@ body{*background:#ff0;}/*ie7-*/
 body{_background:#f0f;}/*ie6*/
 
 function stopBubble(e) {
-        //����ṩ���¼�����������һ����IE�����
+        //如果提供了事件对象，则这是一个非IE浏览器
         if ( e && e.stopPropagation )
-            //�����֧��W3C��stopPropagation()����
+            //因此它支持W3C的stopPropagation()方法
             e.stopPropagation();
         else
-            //����������Ҫʹ��IE�ķ�ʽ��ȡ���¼�ð��
+            //否则，我们需要使用IE的方式来取消事件冒泡
             window.event.cancelBubble = true;
     }
-    //��ֹ�������Ĭ����Ϊ
+    //阻止浏览器的默认行为
     function stopDefault( e ) {
-        //��ֹĬ�����������(W3C)
+        //阻止默认浏览器动作(W3C)
         if ( e && e.preventDefault )
             e.preventDefault();
-        //IE����ֹ������Ĭ�϶����ķ�ʽ
+        //IE中阻止函数器默认动作的方式
         else
             window.event.returnValue = false;
         return false;
     }
 
 
-������÷�
-async ���Թ涨һ���ű����ã�����첽ִ�С�
-ע�ͣ�async ���Խ��������ⲿ�ű���ֻ����ʹ�� src ����ʱ����
-ע�ͣ��ж���ִ���ⲿ�ű��ķ�����
-��� async="async"���ű������ҳ������ಿ���첽��ִ�У���ҳ��������н���ʱ���ű�����ִ�У�
-�����ʹ�� async �� defer="defer"���ű�����ҳ����ɽ���ʱִ��
-����Ȳ�ʹ�� async Ҳ��ʹ�� defer�����������������ҳ��֮ǰ��������ȡ��ִ�нű�
+定义和用法
+async 属性规定一旦脚本可用，则会异步执行。
+注释：async 属性仅适用于外部脚本（只有在使用 src 属性时）。
+注释：有多种执行外部脚本的方法：
+如果 async="async"：脚本相对于页面的其余部分异步地执行（当页面继续进行解析时，脚本将被执行）
+如果不使用 async 且 defer="defer"：脚本将在页面完成解析时执行
+如果既不使用 async 也不使用 defer：在浏览器继续解析页面之前，立即读取并执行脚本
