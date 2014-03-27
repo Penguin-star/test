@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>获取文本域字符长度,支持回调</title>
+<style>
+body,html{margin:0;padding:0;}
+p{text-align:right;}
+p span{color:#f00;}
+input{border:1px solid #ccc;}
+textarea{width:1000px;height:100px;border:1px solid  #ccc;margin:1px;resize:none;}
+textarea:focus{margin:0;border:2px solid  #09f;outline:none;box-shadow:inset 2px 2px 5px #ccc;}
+</style>
+</head>
+
+<body>
+<div id="bigdiv"><input type="text" /></div>
+<div><input type="text" id="input" value="" style="width:200px;" placeholder="我这里只能输入数字" /></div>
+<div><input type="email" id="email" value="" style="width:200px;" placeholder="10位" /></div>
+<div><input type="password" id="pass" value="" style="width:200px" placeholder="密码框" /></div>
+<div><textarea id="tarea" placeholder="文本域"></textarea></div>
+<p>您还可以输入<span id="maxlen">10</span>个字符</p>
+
+
+<script type="text/javascript" src="http://static.meishichina.com/v6/js/all.1.0.js"></script>
+<script type="text/javascript">
+	(function(window, $, msc){
+		var text = msc.register("msc.tools.text");
+		/**
+		 * 获取字符串的长度
+		 * @param  {string}  str    要获取的字符
+		 * @param  {Boolean} isByte 是否计算字节,如果为true则把中文算成2个字节
+		 * @return {number}         长度
+		 */
+		text.getStrLength = function(str, isByte){
+			str += "";
+			if(isByte){
+				str = str.replace(/[^\x00-\xff]/g,"**");
+			}
+			// console.log(str.length)
+			return str.length;
+		}
+
+		/**
+		 * 根据length获取字符串
+		 * @param  {sgring}  str    目标字符串
+		 * @param  {number}  length 要获取的位数
+		 * @param  {Boolean} isByte 是否转换中文
+		 * @return {string}         最终字符串
+		 */
+		text.getStr = function(str, length, isByte){
+			var i,
+				len,
+				result,
+				num;
+			str += "";
+			if(isByte){
+				num = i = 0;
+				result = str.split("");
+				len = result.length;
+				for(;i<len;i++){
+					if(/[^\x00-\xff]/.test(result[i])){
+						num+=2;
+					} else {
+						num++;
+					}
+					if(num > length){
+						break;
+					}
+				}
+				console.log(i)
+				length = i;
+			}
+			return str.substr(0, length);
+		}
+
+		/**
+		 * 计算数字
+		 * @param  {object || string}   config    对象配置或者id
+		 * @param  {number}   maxLength 如果为数字则是最大数
+		 * @param  {Function} callback  回调
+		 * @return {object}             msc.tools.text
+		 */
+		text.computeNumber = function(config, maxLength, callback){
+			var maxLength;
+
+			if("string" === typeof (config)){
+				config = {
+					id: config,
+					maxLength: maxLength,
+					callback: callback
+				}
+			}
+
+			//默认参数
+			config = $.extend({
+				id: null,//id
+				maxLength: 280,//最大数
+				callback: $.noop,//回调
+				isByte: true//是否把中文计算为2字节
+			}, config);
+
+			//如果没有id
+			if(!config.id || !(config.id = $(config.id)).length){
+				return text;
+			}
+
+			
+
+			$.each(config.id, function(){
+				var $this = $(this);
+				maxLength = "function" === typeof(config.maxLength) ? config.maxLength.call($this[0]) : config.maxLength;
+
+				$this.on("blur focus parse keyup", function(e){
+					var value = this.value;
+					if(text.getStrLength(value, !!config.isByte) > maxLength){
+						this.value = text.getStr(value, maxLength, !!config.isByte);
+					}
+					config.callback.call(this, e, text.getStrLength(this.value, !!config.isByte));
+				});
+
+			});
+
+
+			return text;
+		}
+	}(this, this.jQuery, this.msc));
+
+
+	msc.tools.text.computeNumber("input,textarea", 10, function(e, length){
+		$("#maxlen").html(10-length);
+	});
+</script>
+</body>
+</html>
