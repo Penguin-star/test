@@ -51,19 +51,18 @@ textarea:focus{margin:0;border:2px solid  #09f;outline:none;box-shadow:inset 2px
 		text.getStr = function(str, length, isByte){
 			var i,
 				len,
-				result,
-				num;
+				num,
+				temp;
 			str += "";
 			if(isByte){
 				num = i = 0;
-				result = str.split("");
-				len = result.length;
+				len = str.length;
 				for(;i<len;i++){
-					if(/(?:[^\x00-\xff])/.test(result[i])){
-						num+=2;
-					} else {
-						num++;
-					}
+					// if(/(?:[^\x00-\xff])/.test(result[i])){
+					// 不用正则判断是否中文
+					temp = str.charCodeAt(i);
+					num += temp>0 && temp<255 ? 1 : 2;
+					
 					if(num > length){
 						break;
 					}
