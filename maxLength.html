@@ -59,7 +59,7 @@ textarea:focus{margin:0;border:2px solid  #09f;outline:none;box-shadow:inset 2px
 				result = str.split("");
 				len = result.length;
 				for(;i<len;i++){
-					if(/[^\x00-\xff]/.test(result[i])){
+					if(/(?:[^\x00-\xff])/.test(result[i])){
 						num+=2;
 					} else {
 						num++;
@@ -82,8 +82,6 @@ textarea:focus{margin:0;border:2px solid  #09f;outline:none;box-shadow:inset 2px
 		 * @return {object}             msc.tools.text
 		 */
 		text.computeNumber = function(config, maxLength, callback){
-			var maxLength;
-
 			if("string" === typeof (config)){
 				config = {
 					id: config,
@@ -106,10 +104,10 @@ textarea:focus{margin:0;border:2px solid  #09f;outline:none;box-shadow:inset 2px
 			}
 
 			
-
+			//遍历所有id
 			$.each(config.id, function(){
-				var $this = $(this);
-				maxLength = "function" === typeof(config.maxLength) ? config.maxLength.call($this[0]) : config.maxLength;
+				var $this = $(this),
+					maxLength = "function" === typeof(config.maxLength) ? config.maxLength.call($this[0]) : config.maxLength;
 
 				$this.on("blur focus parse keyup", function(e){
 					var value = this.value;
@@ -126,7 +124,14 @@ textarea:focus{margin:0;border:2px solid  #09f;outline:none;box-shadow:inset 2px
 		}
 	}(this, this.jQuery, this.msc));
 
-
+	// msc.tools.text.computeNumber({
+	// 	id:$("input"),
+	// 	isByte:true,
+	// 	callback:$.noop,
+	// 	maxLength: function(){
+	// 		return $(this).attr("data-length");
+	// 	}
+	// });
 	msc.tools.text.computeNumber("input,textarea", 10, function(e, length){
 		$("#maxlen").html(10-length);
 	});
