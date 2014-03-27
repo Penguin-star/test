@@ -35,7 +35,7 @@ textarea:focus{margin:0;border:2px solid  #09f;outline:none;box-shadow:inset 2px
 		text.getStrLength = function(str, isByte){
 			str += "";
 			if(isByte){
-				str = str.replace(/[^\x00-\xff]/g,"**");
+				str = str.replace(/(?:[^\x00-\xff])/g,"**");
 			}
 			// console.log(str.length)
 			return str.length;
