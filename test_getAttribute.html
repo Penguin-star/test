@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>getAttribute</title>
+</head>
+<body>
+    <div id="J_1" data-id="1">J_1</div>
+    <input id="J_2" type="text" placeholder="请输入商品名称,用空格隔开,最多保留3个词">
+    <textarea id="J_3" placeholder="我是测试的">J_3</textarea>
+    <div id="J_4" class="test4">J_4</div>
+    <div id="J_5" data-class="test5">J_5</div>
+
+    <script type="text/javascript">
+        alert("ID1的 data-id for getAttr = "+ $("J_1").getAttribute("data-id") +", 与真实相比 = "+ (1 == $("J_1").getAttribute("data-id")));
+        alert("ID2的 placeholder for getAttr = "+ $("J_2").getAttribute("placeholder") +", 与真实相比 = "+ ('请输入商品名称,用空格隔开,最多保留3个词' == $("J_2").getAttribute("placeholder")));
+        alert("ID3的 placeholder for getAttr = "+ $("J_3").getAttribute("placeholder") +", 与真实相比 = "+ ('我是测试的' == $("J_3").getAttribute("placeholder")));
+        alert("ID4的 class for getAttr = "+ $("J_4").getAttribute("class") +", 与真实相比 = "+ ('test4' == $("J_4").getAttribute("class")));
+        alert("ID4的 class for id.className = "+ $("J_4").className +", 与真实相比 = "+ ('test4' == $("J_4").className));
+
+        alert("ID4的 class for getAttribute.value = "+ $("J_4").getAttributeNode("class").value +", 与真实相比 = "+ ('test4' == $("J_4").getAttributeNode("class").value));
+
+        alert("ID5的 data-class for getAttr = "+ $("J_5").getAttribute("data-class") +", 与真实相比 = "+ ('test5' == $("J_5").getAttribute("data-class")));
+
+
+        function $ (str) {
+            return document.getElementById(str);
+        }
+
+
+        function alert(str){
+            var  _alert = window.alert;
+            window.console ? console.log(str) : _alert(str);
+        }
+
+    </script>
+
+</body>
+</html>
