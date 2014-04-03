@@ -3,6 +3,8 @@
      * 文本框相关操作
      * @namespace msc.tools.text
      * @memberOf msc.tools
+     * @author xieliang
+     * @email xieyaowu@meishichina.com
      */
     var text = msc.register("msc.tools.text");
 
@@ -15,6 +17,7 @@
      *
      * @memberOf msc.tools.text
      * @function
+     * @name msc.tools.text.getStrLength
      */
     text.getStrLength = function(str, isByte) {
         str += "";
@@ -34,6 +37,7 @@
      *
      * @function
      * @memberOf msc.tools.text
+     * @name msc.tools.text.getStr
      */
     text.getStr = function(str, length, isByte) {
         var i,
@@ -78,6 +82,7 @@
      *
      * @function
      * @memberOf msc.tools.text
+     * @name msc.tools.text.computeNumber
      *
      * @example
      *     1, 不限制输入
