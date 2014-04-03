@@ -16,6 +16,17 @@
  *  echo $page->create($current_page);
  *
  * change: xieliang扩展支持 $template 里的page,url变量
+ * @demo
+ *          总条数, 样式模板, URL参数
+ *           $page_template = array(
+  *                  'blur'  => '<a href="/xieliang/1/%page%/">%page%</a>',//非当前页样式
+  *                  'focus' => '<span class="on">%page%</span>',//当前页样式
+   *                 'prev'  => '<a href="/xieliang/1/%page%/">上一页</a>',//上一页样式
+   *                 'next'  => '<a href="/xieliang/1/%page%/">下一页</a>',//下一页样式
+   *                 'dian'  => '<span class="dot">...</span>'//...样式，可省略
+   *             );
+  *          $pager = new Page_v2_extend(1230, $page_template, $param);
+  *          $this->e_smarty->assign('page', $pager->create($page));
  */
 
 include_once('extend.php');
