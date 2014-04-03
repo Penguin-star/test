@@ -63,7 +63,7 @@
 
 
     /**
-     * 时间监听计算文本框内的字符
+     * 时实监听计算文本框内的字符
      * @param  {object || string}           config                  对象配置或者id
      * @param  {number}                     maxLength               如果为数字则是最大数
      * @param  {Function}                   callback                回调
