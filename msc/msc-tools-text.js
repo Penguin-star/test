@@ -12,14 +12,14 @@
      * @param  {string}  str    要获取的字符
      * @param  {Boolean} isByte 是否计算字节,如果为true则把中文算成2个字节
      * @return {number}         字符长度
-     * 
+     *
      * @memberOf msc.tools.text
      * @function
      */
     text.getStrLength = function(str, isByte) {
         str += "";
         if (isByte) {
-            str = str.replace(/(?:[^\x00-\xff])/g, "**");//思路来自田想兵
+            str = str.replace(/(?:[^\x00-\xff])/g, "**"); //思路来自田想兵
         }
         // console.log(str.length)
         return str.length;
@@ -64,16 +64,16 @@
 
     /**
      * 时实监听计算文本框内的字符
-     * @param  {object || string}           config                  对象配置或者id
+     * @param  {(object|string)}            config                  对象配置或者id
      * @param  {number}                     maxLength               如果为数字则是最大数
      * @param  {Function}                   callback                回调
      *
      * config采用{}方式,更利于以后的扩展
-     * @param  {string|element}             config.id               要绑定的id
+     * @param  {(string|element)}           config.id               要绑定的id
      * @param  {number}                     config.maxLength        如果为数字则为最大数,如果为fn,则拿call(ele)执行,如果为false则不强行设置他的输入只触发回调
      * @param  {function}                   config.callback         触发后的回调
      * @param  {boolean}                    [config.isByte=true]    是否把中文计算为2个字符
-     * 
+     *
      * @return {object}                     msc.tools.text
      *
      * @function
@@ -103,7 +103,7 @@
      *              });
      */
     text.computeNumber = function(config, maxLength, callback) {
-        if (! $.isPlainObject(config)) {
+        if (!$.isPlainObject(config)) { //如果第一个参数不是{}
             config = {
                 id: config,
                 maxLength: maxLength,
@@ -119,7 +119,7 @@
             isByte: true //是否把中文计算为2字节
         }, config);
 
-        //如果没有id
+        //如果没有id 或者 选择器空
         if (!config.id || !(config.id = $(config.id)).length) {
             return text;
         }
@@ -128,8 +128,9 @@
         //遍历所有id
         $.each(config.id, function() {
             var $this = $(this),
-                maxLength = "function" === typeof(config.maxLength) ? config.maxLength.call($this[0]) : config.maxLength;//call的时候总是拿dom而不是jQuery
-            maxLength = maxLength | 0;//以防出错
+                maxLength = ("function" === typeof(config.maxLength) ?
+                    config.maxLength.call(this) :
+                    config.maxLength) | 0; //call的时候总是拿dom而不是jQuery
 
 
             //监听事件
@@ -137,7 +138,8 @@
             //获得焦点
             //粘贴?
             //按下
-            $this.on("blur focus parse keyup", function(e) {
+            //blur.msc是为了不给别的事件冲突, 害怕该元素在别的地方绑定有blur
+            $this.on("blur.msc focus parse keyup", function(e) {
                 var value;
 
                 //如果要求输入最大数时才计算
@@ -147,9 +149,13 @@
 
                 //执行回调
                 config.callback.call(this, e, text.getStrLength(this.value, !! config.isByte));
-            });
 
-        }).blur();//默认触发下,相当与初始化
+            })
+
+            //默认触发下,相当与初始化, 不能写在each外,因为 triggerHandler 只触发第一个元素
+            .triggerHandler("blur.msc");
+
+        }); 
 
 
         return text;
