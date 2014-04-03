@@ -19,7 +19,7 @@
     text.getStrLength = function(str, isByte) {
         str += "";
         if (isByte) {
-            str = str.replace(/(?:[^\x00-\xff])/g, "**");
+            str = str.replace(/(?:[^\x00-\xff])/g, "**");//思路来自田想兵
         }
         // console.log(str.length)
         return str.length;
