@@ -2,12 +2,19 @@
     /**
      * 区域级联select, 必须使用new, 此文件包含数据, 库里存的数据为值,而不是key
      * @param  {object} config 配置
-     * @return {object}        实例
+     * @param {(string|HTMLElement|$(selector))}    config.province                省的选择器
+     * @param {(string|HTMLElement|$(selector))}    config.city                    市的选择器
+     * @param {(string|HTMLElement|$(selector))}    config.area                    县的选择器
+     * @param {boolean}                             [config.auto=false]     是否获取select的值填充
+     * @param {boolean}                             [config.focus=true]     是否操作焦点, 在更改select时触发到下个select, 但通过 .val() 设置的不触发
+     * @return {object}                                                     实例
      *
      * @function
      * @memberOf msc.tools
      * @name msc.tools.region
      *
+     * @change
+     *     添加对焦点的操作, 如: 点击第一个后聚焦到第二个, config.focus
      * @example
      *     1, 自动填入数据, 只要数据正确就没问题, 如果数据错误就不显示, 比如 你非要写河北省里的天津市
      *         html:    <select name="" id="J_jiaxiang_sheng">
@@ -164,15 +171,15 @@
                 data = DATA,
                 item;
 
-            dom.province.change(function() {
-                self._changeProvince();
+            dom.province.change(function(e, a) {
+                self._changeProvince(a);
             });
 
 
 
             if (dom.city) {
-                dom.city.html('<option value="">请选择市</option>').change(function() {
-                    self._changeCity();
+                dom.city.html('<option value="">请选择市</option>').change(function(e, a) {
+                    self._changeCity(a);
                 });
             }
 
@@ -190,7 +197,7 @@
         },
 
         //改变市的回调
-        _changeCity: function() {
+        _changeCity: function(a) {
             var dom = this._dom,
                 str,
                 item,
@@ -217,11 +224,15 @@
                 }
 
                 dom.area.html(str);
+
+                if(a !== 'val' && this.config.focus){
+                    dom.area.focus();
+                }
             }
         },
 
         //改变省的回调
-        _changeProvince: function() {
+        _changeProvince: function( a ) {
             var dom = this._dom,
                 str,
                 item,
@@ -245,6 +256,9 @@
                     }
                 }
                 dom.city.html(str).change();
+                if(a !== 'val' && this.config.focus){
+                    dom.city.focus();
+                }
             }
         }
     }
@@ -673,7 +687,8 @@
         province: "",
         city: "",
         area: "",
-        auto: false //是否根据select的value获得值?
+        auto: false, //是否根据select的value获得值?
+        focus: true // 是否操作焦点
     }
 
 }(window, jQuery, msc));
