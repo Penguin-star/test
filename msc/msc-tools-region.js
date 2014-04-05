@@ -223,7 +223,7 @@
                     dom.area.html(str).prop("disabled", false);
                 }
 
-                dom.area.html(str);
+                dom.area.html(str).change();
 
                 if(a !== 'val' && this.config.focus){
                     dom.area.focus();
