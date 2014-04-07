@@ -282,3 +282,7 @@ async 属性规定一旦脚本可用，则会异步执行。
 如果 async="async"：脚本相对于页面的其余部分异步地执行（当页面继续进行解析时，脚本将被执行）
 如果不使用 async 且 defer="defer"：脚本将在页面完成解析时执行
 如果既不使用 async 也不使用 defer：在浏览器继续解析页面之前，立即读取并执行脚本
+
+
+
+T.browser.firefox ? window.location.href = "about:blank" : (window.open("", "_self", ""), window.close())
