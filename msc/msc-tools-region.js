@@ -1,4 +1,4 @@
-(function(window, $, msc, undefined) {
+(function(window, $, msc) {
     /**
      * 区域级联select, 必须使用new, 此文件包含数据, 库里存的数据为值,而不是key
      * @param  {object} config 配置
@@ -6,15 +6,12 @@
      * @param {(string|HTMLElement|$(selector))}    config.city                    市的选择器
      * @param {(string|HTMLElement|$(selector))}    config.area                    县的选择器
      * @param {boolean}                             [config.auto=false]     是否获取select的值填充
-     * @param {boolean}                             [config.focus=true]     是否操作焦点, 在更改select时触发到下个select, 但通过 .val() 设置的不触发
      * @return {object}                                                     实例
      *
      * @function
      * @memberOf msc.tools
      * @name msc.tools.region
      *
-     * @change
-     *     添加对焦点的操作, 如: 点击第一个后聚焦到第二个, config.focus
      * @example
      *     1, 自动填入数据, 只要数据正确就没问题, 如果数据错误就不显示, 比如 你非要写河北省里的天津市
      *         html:    <select name="" id="J_jiaxiang_sheng">
@@ -79,12 +76,16 @@
             this._dom.province = config.province ? $(config.province) : null;
             this._dom.city = config.city ? $(config.city) : null;
             this._dom.area = config.area ? $(config.area) : null;
+
         },
         
         //内部触发默认设置的
         _trigger: function() {
-            var defaultValue = this.config.defaultValue;
-            this.val(defaultValue.province, defaultValue.city, defaultValue.area);
+            var defaultValue = this.config.defaultValue,
+                self = this;
+            setTimeout(function() {
+                self.val(defaultValue.province, defaultValue.city, defaultValue.area);
+            });
         },
         //内部设置省
         _setProvince: function(value) {
@@ -117,8 +118,9 @@
             if (value && dom.area) {
                 province = dom.province.val();
                 city = dom.city.val();
+
                 if (province && $.inArray(value, data[province][city] || []) > -1) {
-                    dom.area.val(value);
+                    dom.area.val(value).change();
                 }
             }
         },
@@ -128,6 +130,7 @@
             var self = this,
                 dom = self._dom,
                 data = DATA;
+
 
             if ($.isPlainObject(province)) {
                 city = province.city;
@@ -150,6 +153,7 @@
                 }, 200);
             }
 
+
             return self;
         },
 
@@ -161,6 +165,7 @@
             dom.province && (config.defaultValue.province = dom.province.val());
             dom.city && (config.defaultValue.city = dom.city.val());
             dom.area && (config.defaultValue.area = dom.area.val());
+
         },
 
         // 绑定事件
@@ -172,14 +177,18 @@
                 item;
 
             dom.province.change(function(e, a) {
-                self._changeProvince(a);
+                 setTimeout(function(){
+                    self._changeProvince(a);
+                });
             });
 
 
 
             if (dom.city) {
                 dom.city.html('<option value="">请选择市</option>').change(function(e, a) {
-                    self._changeCity(a);
+                    setTimeout(function(){
+                        self._changeCity(a);
+                    });
                 });
             }
 
@@ -191,9 +200,12 @@
             //处理省
             str = '<option value="">请选择省</option>';
             for (item in data) {
-                str += '<option value=' + item + '>' + item + '</option>';
+                str += '<option value="' + item + '"">' + item + '</option>';
             }
-            dom.province.html(str).change();
+            dom.province.empty().html(str);
+            setTimeout(function(){
+                dom.province.change();
+            });
         },
 
         //改变市的回调
@@ -209,25 +221,22 @@
                 value1 = dom.province.val();
                 value2 = dom.city.val();
                 data = DATA;
-                str = '<option value="">请选择县</option>';
+                str = '<option>请选择县</option>';
 
 
 
                 //如果第一个为默认或者第二个为默认 则让第三个不可用
                 if (!value1 || !value2 || !data[value1][value2] || !data[value1][value2].length) {
-                    dom.area.prop("disabled", true);
+                    dom.area.html(str).prop("disabled", true);
                 } else {
                     $.each(data[value1][value2], function(i, val) {
                         str += '<option value=' + val + '>' + val + '</option>';
                     });
-                    dom.area.html(str).prop("disabled", false);
+                    dom.area.prop("disabled", false).html(str);
                 }
-
-                dom.area.html(str);
-
-                if(a !== 'val' && this.config.focus){
-                    dom.area.focus();
-                }
+                setTimeout(function(){
+                    dom.area.change();
+                });
             }
         },
 
@@ -241,24 +250,22 @@
             if (dom.city) {
                 value = dom.province.val();
                 data = DATA;
-                str = '<option value="">请选择市</option>';
+                str = '<option>请选择市</option>';
 
-                if (!value) {
-                    dom.city.prop("disabled", true);
+                dom.city.empty();
+
+                if (!value || !$.isPlainObject(data[value])) {
+                    dom.city.html(str).prop("disabled", true);
                 } else {
-                    if ($.isPlainObject(data[value])) {
-                        dom.city.prop("disabled", false);
-                        for (item in data[value]) {
-                            str += '<option value=' + item + '>' + item + '</option>';
-                        }
-                    } else {
-                        dom.city.prop("disabled", true);
+                    for (item in data[value]) {
+                        str += '<option value=' + item + '>' + item + '</option>';
                     }
+                    dom.city.prop("disabled", false).html(str);
                 }
-                dom.city.html(str).change();
-                if(a !== 'val' && this.config.focus){
-                    dom.city.focus();
-                }
+
+                setTimeout(function(){
+                    dom.city.change();
+                });
             }
         }
     }
@@ -687,8 +694,7 @@
         province: "",
         city: "",
         area: "",
-        auto: false, //是否根据select的value获得值?
-        focus: true // 是否操作焦点
+        auto: false //是否根据select的value获得值?
     }
 
 }(window, jQuery, msc));
