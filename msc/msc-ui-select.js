@@ -1,6 +1,7 @@
 /**
  * 美化select
  * @todo 键盘事件,事件委托,添加focus,blur等操作, 多选
+ * @description 这一版存在诸多的bug,且没有优化
  */
 (function($, msc){
     var isIe6 = msc.tools.browser.isIe6,
@@ -57,11 +58,11 @@
         },
         disabled: function(){
             this._disabled = true;
-            this._dom.wrap.addClass("ui_select_disabled");
+            this._dom.wrap.addClass("ui-select-disabled");
             return this;
         },
         enabled: function(){
-            this._dom.wrap.removeClass("ui_select_disabled");
+            this._dom.wrap.removeClass("ui-select-disabled");
             this._disabled = false;
             return this;
         },
@@ -69,13 +70,13 @@
             var dom = this._dom,
                 defa = this._runCall(this.config.defaultValue),
                 value = dom.ele.val(),
-                str = "",
-                optionHeight;
+                selectedValue = dom.ele.find("option:selected").text(),
+                str = "";
 
             
 
-            if(value){
-                defa = value;
+            if(selectedValue){
+                defa = selectedValue;
             }
 
             if(defa === true){
@@ -93,17 +94,13 @@
                 this.enabled();
             }
 
-            optionHeight = dom.ele.find("option").each(function(){
+            dom.ele.find("option").each(function(){
                 if(value == this.value){
-                    str += '<div class="ui_select_li_on ui_select_item" data-value="'+ this.value +'">'+ this.text +'</div>';
+                    str += '<div class="ui-select-li-on ui-select-item" data-value="'+ this.value +'">'+ this.text +'</div>';
                 } else {
-                    str += '<div class="ui_select_item" data-value="'+ this.value +'">'+ this.text +'</div>';
+                    str += '<div class="ui-select-item" data-value="'+ this.value +'">'+ this.text +'</div>';
                 }
-            }).length * 28;
-
-            if(isIe6 && optionHeight > this.config.maxHeight){
-                dom.list.height(this.config.maxHeight);
-            }
+            });
 
            
             dom.list.html(str);
@@ -128,7 +125,7 @@
                 });
 
 
-                $document.on("click", ".ui_select_tit", function(){
+                $document.on("click", ".ui-select-tit", function(){
                     if(this !== dom.title[0]){
                         self.hide();
                     }
@@ -143,11 +140,11 @@
 
 
             //委托列表
-            dom.list.on("click", ".ui_select_item", function(){
+            dom.list.on("click", ".ui-select-item", function(){
                 dom.span.html( this.innerHTML );
                 dom.ele.val( this.getAttribute("data-value") ).change();
-                dom.list.find(".ui_select_item").removeClass("ui_select_li_on");
-                this.className += ' ui_select_li_on';
+                dom.list.find(".ui-select-item").removeClass("ui-select-li-on");
+                this.className += ' ui-select-li-on';
                 self.hide();
                 return false;
             });
@@ -157,7 +154,7 @@
             if(! this._visible){
                 this._visible = true;
                 this._dom.list.show();
-                this._dom.wrap.addClass("ui_select_hover");
+                this._dom.wrap.addClass("ui-select-hover");
             }
             return this;
         },
@@ -165,7 +162,7 @@
             if( this._visible ){
                 this._visible = false;
                 this._dom.list.hide();
-                this._dom.wrap.removeClass("ui_select_hover");
+                this._dom.wrap.removeClass("ui-select-hover");
             }
             return this;
         },
@@ -178,14 +175,14 @@
         _append: function(){
             var dom = this._dom,
                 config = this.config,
-                str =   '<div class="ui_select">'+
-                            '<div class="ui_select_tit">'+
+                str =   '<div class="ui-select">'+
+                            '<div class="ui-select-tit">'+
                                 '<a href="javascript:;">'+
                                     '<span>...</span>'+
                                     '<b></b><i></i>'+
                                 '</a>'+
                             '</div>'+
-                            '<div class="ui_select_ul"></div>'+
+                            '<div class="ui-select-ul"></div>'+
                         '</div>';
             dom.wrap = $(str).insertAfter(dom.ele);
 
@@ -193,10 +190,10 @@
 
             dom.wrap.width(str);
 
-            dom.title = dom.wrap.find(".ui_select_tit");
+            dom.title = dom.wrap.find(".ui-select-tit");
             dom.span = dom.title.find("span");
-            dom.list = dom.wrap.find(".ui_select_ul").css(isIe6? 'width' : "maxWidth", this._runCall(config.maxWidth));
-            !isIe6 && (dom.list.css("maxHeight", this._runCall(config.maxHeight)));
+            dom.list = dom.wrap.find(".ui-select-ul").css(isIe6? 'width' : "maxWidth", this._runCall(config.maxWidth));
+            dom.list.css(isIe6? 'height' : "maxHeight", this._runCall(config.maxHeight));
             !isIe6 && (dom.list.css("minWidth", str-2));
             dom.ele.hide();
         }
