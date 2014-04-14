@@ -232,7 +232,17 @@
                     $.each(data[value1][value2], function(i, val) {
                         str += '<option value=' + val + '>' + val + '</option>';
                     });
+<<<<<<< HEAD
                     dom.area.prop("disabled", false).html(str);
+=======
+                    dom.area.html(str).prop("disabled", false);
+                }
+
+                dom.area.html(str).change();
+
+                if(a !== 'val' && this.config.focus){
+                    dom.area.focus();
+>>>>>>> 1eb27677fb9c2a8394b811df8b93c0719c79e09b
                 }
                 setTimeout(function(){
                     dom.area.change();

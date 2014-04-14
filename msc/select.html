@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>select美化</title>
+    <link rel="stylesheet" type="text/css" href="http://homecp.meishichina.com/v6/css/??reset.css,footer.css,bar.css,ui-dialog.css,my_center.css?20140401">
+</head>
+<body>
+    <div class="header">
+
+        <div class="top-bar" id="J_top_bar">
+            <div class="w clear">
+                <ul class="bar-left left">
+                    <li>
+                        <a href="http://www.meishichina.com/">美食天下</a>
+                    </li>
+                    <li class="line"></li>
+                    <li>
+                        <a href="http://home.meishichina.com/recipe.html">菜谱大全</a>
+                    </li>
+                    <li class="line"></li>
+                    <li>
+                        <a href="http://www.meishichina.com/YuanLiao/">食材</a>
+                    </li>
+                    <li class="line"></li>
+                    <li>
+                        <a href="http://zhen.meishichina.com/">珍选</a>
+                    </li>
+                    <li class="line"></li>
+                    <li>
+                        <a href="http://home.meishichina.com/">美食家</a>
+                    </li>
+                </ul>
+                <div class="right" id="J_top_bar_user"></div>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="wrap">
+        <div class="w clear mod">
+            
+            <div class="mod_left">
+
+                <!-- 
+    个人中心关系左侧菜单;
+    给当前分类的a标签上添加 class="on";
+ -->
+<div class="menu_wrap">
+    <ul>
+        <li>
+            <h2>关系</h2>
+        </li>
+        <li><a href="meishi2.php?ac=mycenter&amp;op=my_settings_profile">个人信息</a></li>
+        <li><a href="#">头像</a></li>
+        <li><a href="meishi2.php?ac=mycenter&amp;op=my_settings_url">个性化</a></li>
+        <li><a href="#">收贷地址</a></li>
+        <li>
+            <h2>安全中心</h2>
+        </li>
+        <li><a href="#">帐号绑定</a></li>
+        <li><a href="#">密码修改</a></li>
+        <li><a href="#">安全设置</a></li>
+    </ul>
+</div>
+<!-- 左侧分类导航结束 -->
+
+
+            </div>
+            
+            <!-- 右侧 -->
+            <div class="mod_right">
+
+                <div class="mod_location">
+                    当前位置：<a href="#">会员中心</a> &gt; <a href="#">帐户信息</a> &gt; <span>个人信息</span>
+                </div>
+
+                <div class="ui_title mt20">
+                    <div class="ui_title_wrap">
+                        <h2>个人信息</h2>
+                    </div>
+                </div>
+                
+                <!-- <div class="ui_form_1 mt30">
+                    <form action="?">
+                        <ul>
+                            <li>
+                                <label class="label" for="J_username">真实姓名：</label>
+                                <div class="detail">
+                                    <input type="text" class="text">
+                                </div>
+                            </li>
+                            <li class="radio">
+                                <div class="label">
+                                    性别：
+                                    选中给予: checked="checked"
+                                </div>
+                                <div class="detail">
+                                    <label><input type="radio" name="gender" checked="checked" value="1">男</label>
+                                    <label><input type="radio" name="gender" value="0">女</label>
+                                </div>
+                            </li>
+                            <li>
+                                <label class="label" for="J_ganqing">感情状况：</label>
+                                <div class="detail">
+                                    选中给予: checked="checked"
+                                    <select name="" id="J_ganqing" data-width="80">
+                                        <option value="0">无</option>
+                                        <option value="1">单身</option>
+                                        <option value="2">非单身</option>
+                                    </select>
+                
+                                    <style type="text/css">
+                
+                                        .ui_form_1 li{overflow:visible;}
+                                        .ui_form_1 .detail{overflow:visible;padding-left:185px;zoom:1;}
+                
+                                        .ui_select{display:inline-block;line-height:28px;*display:inline;*zoom:1;*float:left;}
+                                        .ui_select_tit a{background-color:#fff;display:block;padding:0 50px 0 10px;height:28px;border:1px solid #999;position:relative;transition:border-color .3s;overflow:hidden;color:#333;text-decoration:none;outline:none;}
+                                        .ui_select_tit b{width:25px;height:28px;position:absolute;right:0;top:0;overflow:hidden;cursor:pointer;}
+                                        .ui_select_tit i{height:0;width:0;position:absolute;right:5px;top:12px;border:6px dashed transparent;border-top:6px solid #999;overflow:hidden;}
+                
+                                        .ui_select_ul{position:absolute;top:29px;left:0; width:120px;border: 1px solid #999;overflow:hidden;background-color:#fff;overflow-y:auto;display:none;zoom:1;}
+                                        .ui_select_item{height:28px;padding-left:10px;cursor:pointer;overflow:hidden;text-overflow: ellipsis;white-space: nowrap;}
+                                        .ui_select_li_defa{color:#666;border-bottom:1px solid #ccc;cursor:default;}
+                                        .ui_select_li_on{cursor:default;background-color:#e0e0e0;}
+                                        .ui_select_li:hover{background-color:#f0f0f0;}
+                
+                                        .ui_select_disabled{border-color:#ccc;cursor:default;}
+                                        .ui_select_disabled a{color:#999;cursor:default;}
+                
+                                        
+                                        .ui_select_hover{position:relative;z-index:100;}
+                
+                                        .ui_select_hover:hover a b{background-color:#eaf3fc;}
+                                        .ui_select_hover:hover a i{border-top-color:#000;}
+                                        .ui_select_hover:hover a{border-color:#7eb4ea;box-shadow:0 0 10px #ccc;color:#333;text-decoration:none;}
+                                    </style>
+                                        <div class="ui_select">
+                                            <div class="ui_select_tit">
+                                                <a href="#">
+                                                    <span>默认</span>
+                                                    <b></b><i></i>
+                                                </a>
+                                            </div>
+                                            <div class="ui_select_ul">
+                                                <div class="ui_select_li_defa">请选择</div>
+                                                <div class="ui_select_li">地枯地在要在地在在 在在</div>
+                                                <div class="ui_select_li">02</div>
+                                                <div class="ui_select_li">03</div>
+                                                <div class="ui_select_li">04</div>
+                                                <div class="ui_select_li">05</div>
+                                            </div>
+                                        </div>
+                
+                
+                                </div>
+                            </li>
+                            <li>
+                                <label class="label" for="J_shengri">生日：</label>
+                                <div class="detail">
+                                    <input type="text" id="J_shengri" value="1990-11-27" class="text">
+                                    <input type="text" id="J_nian" value="年的值">
+                                    <input type="text" id="J_yue" value="月的值">
+                                    <input type="text" id="J_ri" value="天的值">
+                                </div>
+                            </li>
+                            <li>
+                                <label class="label" for="J_xuexing">血型：</label>
+                                <div class="detail">
+                                    <select id="blood" name="blood" data-width="100">
+                                        <option value="">保密</option>
+                                        <option value="A" selected>A</option>
+                                        <option value="B">B</option>
+                                        <option value="O">O</option>
+                                        <option value="AB">AB</option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li>
+                                <label class="label" for="J_jiaxiang">家乡：</label>
+                                <div class="detail">
+                                    输出到select上
+                                    <select name="" id="J_jiaxiang_sheng"><option value="">请选择省</option><option value="北京市">北京市</option><option value="天津市">天津市</option><option value="测试">测试</option><option value="河北省">河北省</option><option value="山西省">山西省</option><option value="内蒙古自治区">内蒙古自治区</option><option value="辽宁省">辽宁省</option><option value="吉林省">吉林省</option><option value="黑龙江省">黑龙江省</option><option value="上海市">上海市</option><option value="江苏省">江苏省</option><option value="浙江省">浙江省</option><option value="安徽省">安徽省</option><option value="福建省">福建省</option><option value="江西省">江西省</option><option value="山东省">山东省</option><option value="河南省">河南省</option><option value="湖北省">湖北省</option><option value="湖南省">湖南省</option><option value="广东省">广东省</option><option value="广西壮族自治区">广西壮族自治区</option><option value="海南省">海南省</option><option value="重庆市">重庆市</option><option value="四川省">四川省</option><option value="贵州省">贵州省</option><option value="云南省">云南省</option><option value="西藏自治区">西藏自治区</option><option value="陕西省">陕西省</option><option value="甘肃省">甘肃省</option><option value="青海省">青海省</option><option value="宁夏回族自治区">宁夏回族自治区</option><option value="新疆维吾尔自治区">新疆维吾尔自治区</option><option value="台湾省">台湾省</option><option value="香港特别行政区">香港特别行政区</option><option value="澳门特别行政区">澳门特别行政区</option></select>
+                                    <select name="" id="J_jiaxiang_shi"><option value="">请选择市</option><option value="长春市">长春市</option><option value="吉林市">吉林市</option><option value="四平市">四平市</option><option value="辽源市">辽源市</option><option value="通化市">通化市</option><option value="白山市">白山市</option><option value="松原市">松原市</option><option value="白城市">白城市</option><option value="延边朝鲜族自治州">延边朝鲜族自治州</option></select>
+                                    <select name="" id="J_jiaxiang_xian"><option value="">请选择县</option><option value="宁江区">宁江区</option><option value="前郭尔罗斯蒙古族自治县">前郭尔罗斯蒙古族自治县</option><option value="长岭县">长岭县</option><option value="乾安县">乾安县</option><option value="扶余县">扶余县</option></select>
+                                </div>
+                            </li>
+                            <li>
+                                <label class="label" for="J_xianjudi">现居地：</label>
+                                <div class="detail">
+                                    输出到select上
+                                    <select name="" id="J_xian_sheng"><option value="">请选择省</option><option value="北京市">北京市</option><option value="天津市">天津市</option><option value="测试">测试</option><option value="河北省">河北省</option><option value="山西省">山西省</option><option value="内蒙古自治区">内蒙古自治区</option><option value="辽宁省">辽宁省</option><option value="吉林省">吉林省</option><option value="黑龙江省">黑龙江省</option><option value="上海市">上海市</option><option value="江苏省">江苏省</option><option value="浙江省">浙江省</option><option value="安徽省">安徽省</option><option value="福建省">福建省</option><option value="江西省">江西省</option><option value="山东省">山东省</option><option value="河南省">河南省</option><option value="湖北省">湖北省</option><option value="湖南省">湖南省</option><option value="广东省">广东省</option><option value="广西壮族自治区">广西壮族自治区</option><option value="海南省">海南省</option><option value="重庆市">重庆市</option><option value="四川省">四川省</option><option value="贵州省">贵州省</option><option value="云南省">云南省</option><option value="西藏自治区">西藏自治区</option><option value="陕西省">陕西省</option><option value="甘肃省">甘肃省</option><option value="青海省">青海省</option><option value="宁夏回族自治区">宁夏回族自治区</option><option value="新疆维吾尔自治区">新疆维吾尔自治区</option><option value="台湾省">台湾省</option><option value="香港特别行政区">香港特别行政区</option><option value="澳门特别行政区">澳门特别行政区</option></select>
+                                    <select name="" id="J_xian_shi"><option value="">请选择市</option><option value="杭州市">杭州市</option><option value="宁波市">宁波市</option><option value="温州市">温州市</option><option value="嘉兴市">嘉兴市</option><option value="湖州市">湖州市</option><option value="绍兴市">绍兴市</option><option value="金华市">金华市</option><option value="衢州市">衢州市</option><option value="舟山市">舟山市</option><option value="台州市">台州市</option><option value="丽水市">丽水市</option></select>
+                                    <select name="" id="J_xian_xian" disabled=""><option value="">请选择县</option></select>
+                                </div>
+                            </li>
+                            <li>
+                                <label class="label" for="J_qq">QQ：</label>
+                                <div class="detail">
+                                    <input type="text" class="text" value="我是qq">
+                                </div>
+                            </li>
+                            <li class="wordme">
+                                <label class="label" for="J_jianjie">个人简介：</label>
+                                <div class="detail">
+                                    <p>
+                                        个人主页显示您的简介，还可以输入<i id="J_wordme_hit">132</i>字
+                                    </p>
+                                    <textarea class="text text_2" id="J_wordme">我是简介</textarea>
+                                </div>
+                            </li>
+                            <li class="submit">
+                                <div class="detail">
+                                    <input type="submit" class="ui_btn_blue" value="保存修改">
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                </div> -->
+                
+                <div class="ui_form_2 mt30">
+                    
+                </div>
+
+
+
+
+
+
+            </div>
+            <!-- 右侧结束 -->
+
+        </div>
+    </div>
+
+
+    <!-- 引用footer -->
+    <div class="footer-info" id="J_footer_box">
+        <div class="w">
+            <p>
+                版权所有 © 2004-2014 <a href="http://www.meishichina.com/" target="_blank" title="美食天下 - 让吃更美好！">美食天下</a>(北京盛世传越科技有限公司) 保留所有权利 - 京ICP证090244号 / 京ICP备10020153号 / 京公网安备 110105010204
+            </p>
+        </div>
+    </div>
+    <!-- 引用footer结束 -->
+
+
+    <script type="text/javascript" src="http://homecp.meishichina.com/v6/js/??lib/jquery.js,lib/msc.js,lib/msc-event.js,lib/msc-tools-text.js,My97DatePicker/WdatePicker.js"></script>
+
+    <script type="text/javascript" src="msc-tools-region.js"></script>
+
+    <script type="text/javascript" src="msc-ui-select.js"></script>
+    <script type="text/javascript">
+        //生日
+        var shengri_fn = function(){
+            $('#J_nian')[0].value=$dp.cal.getP('y');
+            $('#J_yue')[0].value=$dp.cal.getP('M');
+            $('#J_ri')[0].value=$dp.cal.getP('d');
+        }
+        $("#J_shengri").on("focus", function(){
+            WdatePicker.call(this, {
+                onpicked: shengri_fn
+            });
+        }).on("blur", shengri_fn);
+
+
+        //省市
+        new msc.tools.region({
+            province:$("#J_jiaxiang_sheng"),
+            city:$("#J_jiaxiang_shi"),
+            area:$("#J_jiaxiang_xian"),
+            auto:true
+        });
+
+        new msc.tools.region({
+            province:$("#J_xian_sheng"),
+            city:$("#J_xian_shi"),
+            area:$("#J_xian_xian")
+        })
+
+        //美化
+        msc.ui.select({
+            id:"select",
+            defaultValue:true,
+            width :function(){
+                return this.getAttribute("data-width") || 120;
+            }
+        });
+    </script>
+</body>
+</html>
